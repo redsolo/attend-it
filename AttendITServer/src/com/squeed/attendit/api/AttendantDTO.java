@@ -9,10 +9,22 @@ public class AttendantDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private Long personId;
-	private Long eventId;
+	private PersonDTO person;
+	private EventDTO event;
 	
 	private int status = 0; // 0 = not arrived, 1 = arrived;
+	
+	public AttendantDTO() {}
+	
+	
+
+	public AttendantDTO(Long id, PersonDTO person, EventDTO event, int status) {
+		super();
+		this.id = id;
+		this.person = person;
+		this.event = event;
+		this.status = status;
+	}
 
 	public Long getId() {
 		return id;
@@ -22,20 +34,20 @@ public class AttendantDTO implements Serializable {
 		this.id = id;
 	}
 
-	public Long getPersonId() {
-		return personId;
+	public PersonDTO getPerson() {
+		return person;
 	}
 
-	public void setPersonId(Long personId) {
-		this.personId = personId;
+	public void setPerson(PersonDTO person) {
+		this.person = person;
 	}
 
-	public Long getEventId() {
-		return eventId;
+	public EventDTO getEvent() {
+		return event;
 	}
 
-	public void setEventId(Long eventId) {
-		this.eventId = eventId;
+	public void setEvent(EventDTO event) {
+		this.event = event;
 	}
 
 	public int getStatus() {
@@ -45,6 +57,8 @@ public class AttendantDTO implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	
 	
 	
 }
