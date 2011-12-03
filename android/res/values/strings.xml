@@ -3,6 +3,9 @@
 
     <string name="hello">Hello World, AttendItActivity!</string>
     <string name="app_name">Attend It</string>
+    <string name="nameLbl">Name</string>
+    <string name="saveLbl">Save</string>
+    <string name="cancelLbl">Cancel</string>
 
     
     <string name="list_show_all">All</string>
