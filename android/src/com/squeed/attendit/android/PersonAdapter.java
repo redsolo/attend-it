@@ -148,22 +148,24 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 					public void onClick(View v) {
 						person.setName(editText.getText().toString());
 						
-						RestClient rc = new RestClient(AttendItActivity.URL
-								+ "/attendit/rest/registration/person/"
-								+ person.getId());
-						GsonBuilder builder = new GsonBuilder();				
-						Gson gson = builder.create();
-						
-						String json = gson.toJson(person, PersonDTO.class);
-						Log.i("PersonAdapter", "Person JSON: " + json);
-						rc.AddParam("person", json);
-						try {
-							rc.Execute(RestClient.RequestMethod.POST);
-							Toast.makeText(getContext(), "Successfully updated person", Toast.LENGTH_SHORT).show();
-							alertDialog.dismiss();
-						} catch (Exception e) {
-							Toast.makeText(getContext(), "An error occured saving person: " + e.getMessage(), Toast.LENGTH_LONG).show();
-						}
+//						RestClient rc = new RestClient(AttendItActivity.URL
+//								+ "/attendit/rest/registration/person/"
+//								+ person.getId());
+//						GsonBuilder builder = new GsonBuilder();				
+//						Gson gson = builder.create();
+//						
+//						String json = gson.toJson(person, PersonDTO.class);
+//						Log.i("PersonAdapter", "Person JSON: " + json);
+//						rc.AddParam("person", json);
+//						try {
+//							rc.Execute(RestClient.RequestMethod.POST);
+//							Toast.makeText(getContext(), "Successfully updated person", Toast.LENGTH_SHORT).show();
+//							alertDialog.dismiss();
+//						} catch (Exception e) {
+//							Toast.makeText(getContext(), "An error occured saving person: " + e.getMessage(), Toast.LENGTH_LONG).show();
+//						}
+						Toast.makeText(getContext(), "Successfully updated person", Toast.LENGTH_SHORT).show();
+						alertDialog.dismiss();
 					}
 				});
 
