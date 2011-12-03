@@ -146,6 +146,8 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 
 					@Override
 					public void onClick(View v) {
+						person.setName(editText.getText().toString());
+						
 						RestClient rc = new RestClient(AttendItActivity.URL
 								+ "/attendit/rest/registration/person/"
 								+ person.getId());
