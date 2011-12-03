@@ -21,7 +21,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class AttendItActivity extends ListActivity {
-	private ArrayList<PersonDTO> persons;
+	private ArrayList<AttendantDTO> attendants;
 	private PersonAdapter listAdapter;
 	private EditText filterText;
 
@@ -35,27 +35,20 @@ public class AttendItActivity extends ListActivity {
 		RestClient client = new RestClient("http://192.168.43.213:8080/attendit/rest/registration/event/0/attendants");
 		try {
 			client.Execute(RestClient.RequestMethod.GET);
+
+			String txt = "[{\"id\":0,\"status\":0,\"event\":{\"id\":0,\"title\":\"Javaforum Q1 2012\",\"eventHost\":\"Squeed\",\"place\":\"Folkets Hus\",\"dateOfEvent\":1328457600000},\"person\":{\"name\":\"Adam Lit\r\n\r\nh\",\"id\":0,\"user\":\"adam.lith\",\"emailAddress\":\"adam.lith@squeed.com\",\"company\":null,\"mobilePhoneNr\":\"0733205177\"}}]";
+			Type jsonType = new TypeToken<List<AttendantDTO>>(){}.getType();
+			attendants = new Gson().fromJson(txt, jsonType);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		Type jsonType = new TypeToken<List<AttendantDTO>>(){}.getType();
-		List<AttendantDTO> attendents = new Gson().fromJson(client.getResponse(), jsonType);
-		
-		
-		
-		
-		persons = new ArrayList<PersonDTO>();
-		
-		PersonDTO person = new PersonDTO();
-		person.setUser("erik.ramfelt");
-		person.setName("Erik Ramfelt");
-		persons.add(person);
 		
 		filterText = (EditText) findViewById(R.building_list.search_box);
 		filterText.addTextChangedListener(filterTextWatcher);
 		
-		listAdapter = new PersonAdapter(this, R.layout.person_list_item, persons);
+		listAdapter = new PersonAdapter(this, R.layout.person_list_item, attendants);
 		setListAdapter(listAdapter);
 		
 		

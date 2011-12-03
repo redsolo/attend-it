@@ -25,22 +25,23 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PersonAdapter extends ArrayAdapter<PersonDTO> implements Filterable, OnClickListener {
+public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filterable, OnClickListener {
 
-	private ArrayList<PersonDTO> persons;
+	private ArrayList<AttendantDTO> attendants;
 	private HashMap<String, Bitmap> gravatars;
 	
 	public PersonAdapter(Context context, int textViewResourceId,
-			ArrayList<PersonDTO> items) {
-		super(context, textViewResourceId, new ArrayList<PersonDTO>(items));
-		this.persons = items;
+			ArrayList<AttendantDTO> items) {
+		super(context, textViewResourceId, new ArrayList<AttendantDTO>(items));
+		this.attendants = items;
 	}
 	
-	private List<PersonDTO> getFilteredResults(CharSequence constraint) {
-		List<PersonDTO> list = new ArrayList<PersonDTO>();
-		for (PersonDTO person : persons) {
+	private List<AttendantDTO> getFilteredResults(CharSequence constraint) {
+		List<AttendantDTO> list = new ArrayList<AttendantDTO>();
+		for (AttendantDTO attendant : attendants) {
+			PersonDTO person = attendant.getPerson();
 			if (person.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
-				list.add(person);
+				list.add(attendant);
 			}
 		}
 		return list;
@@ -52,15 +53,15 @@ public class PersonAdapter extends ArrayAdapter<PersonDTO> implements Filterable
 			@Override
 			protected void publishResults(CharSequence constraint, FilterResults results) {
 				PersonAdapter.this.clear();
-				for (PersonDTO person : (ArrayList<PersonDTO>) results.values) {
-					PersonAdapter.this.add(person);	
+				for (AttendantDTO attendant : (ArrayList<AttendantDTO>) results.values) {
+					PersonAdapter.this.add(attendant);	
 				}				
 			    PersonAdapter.this.notifyDataSetChanged();
 			}
 		
 			@Override
 			protected FilterResults performFiltering(CharSequence constraint) {
-				List<PersonDTO> filteredResults = getFilteredResults(constraint);
+				List<AttendantDTO> filteredResults = getFilteredResults(constraint);
 	            FilterResults results = new FilterResults();
 	            results.values = filteredResults;
 	            return results;
@@ -76,14 +77,15 @@ public class PersonAdapter extends ArrayAdapter<PersonDTO> implements Filterable
             LayoutInflater vi = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(R.layout.person_list_item, null);
         }
-        PersonDTO person = getItem(position);
-        if (person != null) {
+        AttendantDTO attendant = getItem(position);
+        if (attendant != null) {
+            PersonDTO person = attendant.getPerson();
             TextView tt = (TextView) v.findViewById(R.id.toptext);
             TextView bt = (TextView) v.findViewById(R.id.bottomtext);
             if (tt != null) {
-                  tt.setText(person.getName());                            }
+				tt.setText(person.getName());                            }
             if(bt != null){
-                  bt.setText(person.getEmailAddress());
+            	bt.setText(person.getEmailAddress());
             }
             CheckBox cb = (CheckBox) v.findViewById(R.id.checkBox1);
             cb.setOnClickListener(this);
@@ -98,7 +100,6 @@ public class PersonAdapter extends ArrayAdapter<PersonDTO> implements Filterable
 		private final ImageView view;
 		public DownloadImageTask(ImageView view) {
 			this.view = view;
-			
 		}
 	     protected Bitmap doInBackground(String... urls) {
 	    	try {
