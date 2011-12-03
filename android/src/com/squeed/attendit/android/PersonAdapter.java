@@ -95,6 +95,7 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
             }
             CheckBox cb = (CheckBox) v.findViewById(R.id.checkBox1);
             cb.setTag(attendant);
+            cb.setOnCheckedChangeListener(null);
             cb.setChecked(attendant.getStatus()== 1);
             cb.setOnCheckedChangeListener(this);
 
