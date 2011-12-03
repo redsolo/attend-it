@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:id="@+id/list_show_all"
+	      android:title="@string/list_show_all" />
+	<item android:id="@+id/list_show_registered"
+	  android:title="@string/list_show_registered" />
+
+</menu>

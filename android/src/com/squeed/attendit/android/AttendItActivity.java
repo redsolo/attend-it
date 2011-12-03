@@ -8,6 +8,9 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -60,6 +63,27 @@ public class AttendItActivity extends ListActivity {
 		
 		
 		
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.list_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    case R.id.list_show_all:
+	        listAdapter.setShowAll(true);
+	        return true;
+	    case R.id.list_show_registered:
+	    	listAdapter.setShowAll(false);
+	        return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
 	}
 
 	private TextWatcher filterTextWatcher = new TextWatcher() {

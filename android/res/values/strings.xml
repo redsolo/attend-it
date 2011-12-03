@@ -4,4 +4,11 @@
     <string name="hello">Hello World, AttendItActivity!</string>
     <string name="app_name">Attend It</string>
 
+    
+    <string name="list_show_all">All</string>
+        
+    <string name="list_show_registered">Unregistered</string>
+        
+        
+        
 </resources>

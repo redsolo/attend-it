@@ -28,6 +28,9 @@ import com.squeed.attendit.api.AttendantDTO;
 import com.squeed.attendit.api.PersonDTO;
 
 public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filterable, OnCheckedChangeListener {
+	
+	private boolean showAll;
+	
 	private ArrayList<AttendantDTO> attendants;
 	private HashMap<String, Bitmap> gravatars = new HashMap<String, Bitmap>();
 	
@@ -35,11 +38,7 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 			ArrayList<AttendantDTO> items) {
 		super(context, textViewResourceId, new ArrayList<AttendantDTO>());
 		this.attendants = items;
-		for (AttendantDTO attendant : attendants) {
-			if (attendant.getStatus() == 0) {
-				add(attendant);
-			}
-		}
+		setShowAll(false);
 	}
 	
 	private List<AttendantDTO> getFilteredResults(CharSequence constraint) {
@@ -134,7 +133,10 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 		
 		RestClient restClient = null;
 		if(isChecked) {
-			restClient = new RestClient(AttendItActivity.URL + "/attendit/rest/registration/register/attendant/" + attendantDto.getId());			
+			restClient = new RestClient(AttendItActivity.URL + "/attendit/rest/registration/register/attendant/" + attendantDto.getId());
+			if (!showAll) {
+				remove(attendantDto);
+			}
 		} else {
 			restClient = new RestClient(AttendItActivity.URL + "/attendit/rest/registration/register/attendant/" + attendantDto.getId());
 		}
@@ -149,5 +151,21 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 		} catch (Exception e) {
 			Toast.makeText(this.getContext(), "An error occured registering attendant: " + e.getMessage(), Toast.LENGTH_LONG);
 		}
+	}
+
+	public boolean isShowAll() {
+		return showAll;
+	}
+
+	public void setShowAll(boolean showAll) {
+		clear();
+		
+		for (AttendantDTO attendant : attendants) {
+			if (showAll || attendant.getStatus() == 0) {
+				add(attendant);
+			}
+		}
+		notifyDataSetChanged();
+		this.showAll = showAll;
 	}
 }
