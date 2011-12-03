@@ -9,6 +9,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class AttendItActivity extends ListActivity {
@@ -29,10 +30,8 @@ public class AttendItActivity extends ListActivity {
 		person.setName("Erik Ramfelt");
 		persons.add(person);
 		
-		   filterText = (EditText) findViewById(R.building_list.search_box);
-		    filterText.addTextChangedListener(filterTextWatcher);
-		
-		
+		filterText = (EditText) findViewById(R.building_list.search_box);
+		filterText.addTextChangedListener(filterTextWatcher);
 		
 		listAdapter = new PersonAdapter(this, R.layout.person_list_item, persons);
 		setListAdapter(listAdapter);
@@ -40,7 +39,7 @@ public class AttendItActivity extends ListActivity {
 		viewOrders = new Runnable() {
 			@Override
 			public void run() {
-				getOrders();
+				// Get stuff here
 			}
 		};
 		Thread thread = new Thread(null, viewOrders, "MagentoBackground");
