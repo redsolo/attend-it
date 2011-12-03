@@ -16,7 +16,7 @@ import com.squeed.attendit.api.AttendantDTO;
 
 public class AttendItActivity extends ListActivity {
 	
-	private static final String URL = "http://192.168.43.213:8080";
+	public static final String URL = "http://192.168.43.213:8080";
 	
 	private ArrayList<AttendantDTO> attendants;
 	private PersonAdapter listAdapter;

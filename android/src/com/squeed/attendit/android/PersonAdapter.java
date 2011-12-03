@@ -33,15 +33,21 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 	
 	public PersonAdapter(Context context, int textViewResourceId,
 			ArrayList<AttendantDTO> items) {
-		super(context, textViewResourceId, new ArrayList<AttendantDTO>(items));
+		super(context, textViewResourceId, new ArrayList<AttendantDTO>());
 		this.attendants = items;
+		for (AttendantDTO attendant : attendants) {
+			if (attendant.getStatus() == 0) {
+				add(attendant);
+			}
+		}
 	}
 	
 	private List<AttendantDTO> getFilteredResults(CharSequence constraint) {
 		List<AttendantDTO> list = new ArrayList<AttendantDTO>();
 		for (AttendantDTO attendant : attendants) {
 			PersonDTO person = attendant.getPerson();
-			if (person.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+			if (person.getName().toLowerCase().contains(constraint.toString().toLowerCase()) && 
+					(attendant.getStatus() == 0)) {
 				list.add(attendant);
 			}
 		}
@@ -89,10 +95,10 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
             	bt.setText(person.getEmailAddress());
             }
             CheckBox cb = (CheckBox) v.findViewById(R.id.checkBox1);
+            cb.setTag(attendant);
+            cb.setChecked(attendant.getStatus()== 1);
             cb.setOnCheckedChangeListener(this);
-            ImageView iv = (ImageView) v.findViewById(R.id.icon);
-            new DownloadImageTask(iv).execute("http://www.gravatar.com/avatar/" + MD5Util.md5Hex(person.getEmailAddress()));
-            cb.setTag(person);
+            new DownloadImageTask((ImageView) v.findViewById(R.id.icon)).execute("http://www.gravatar.com/avatar/" + MD5Util.md5Hex(person.getEmailAddress()));
         }
         return v;
     }
@@ -128,20 +134,20 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 		
 		RestClient restClient = null;
 		if(isChecked) {
-			restClient = new RestClient("http://192.168.43.213:8080/attendit/rest/registration/register/attendant/" + attendantDto.getId());			
+			restClient = new RestClient(AttendItActivity.URL + "/attendit/rest/registration/register/attendant/" + attendantDto.getId());			
 		} else {
-			restClient = new RestClient("http://192.168.43.213:8080/attendit/rest/registration/register/attendant/" + attendantDto.getId());
+			restClient = new RestClient(AttendItActivity.URL + "/attendit/rest/registration/register/attendant/" + attendantDto.getId());
 		}
 		
 		try {
 			restClient.Execute(RestClient.RequestMethod.POST);
-			Toast.makeText(this.getContext(), attendantDto.getPerson().getName() + " was registered!", Toast.LENGTH_SHORT);
+			if (isChecked) {
+				Toast.makeText(this.getContext(), attendantDto.getPerson().getName() + " was registered!", Toast.LENGTH_SHORT);
+			} else {
+				Toast.makeText(this.getContext(), attendantDto.getPerson().getName() + " is no longer registered!", Toast.LENGTH_SHORT);
+			}
 		} catch (Exception e) {
 			Toast.makeText(this.getContext(), "An error occured registering attendant: " + e.getMessage(), Toast.LENGTH_LONG);
 		}
 	}
-
-
-		
-
 }
