@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,9 +20,9 @@ import com.squeed.attendit.api.AttendantDTO;
 
 public class AttendItActivity extends ListActivity {
 	
-	public static final String URL = "http://192.168.43.213:8080";
+	public static final String URL = "http://10.48.227.236:8080";
 	
-	private ArrayList<AttendantDTO> attendants;
+	private ArrayList<AttendantDTO> attendants = new ArrayList<AttendantDTO>();
 	private PersonAdapter listAdapter;
 	private EditText filterText;
 
@@ -37,8 +38,9 @@ public class AttendItActivity extends ListActivity {
 			client.Execute(RestClient.RequestMethod.GET);
 			Type jsonType = new TypeToken<List<AttendantDTO>>(){}.getType();
 			attendants = new Gson().fromJson(client.getResponse(), jsonType);	
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) {			
+			Toast.makeText(this.getBaseContext(), "An error occured during retrieval: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
 		}
 		
 		

@@ -32,7 +32,7 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 	private boolean showAll;
 	
 	private ArrayList<AttendantDTO> attendants;
-	private HashMap<String, Bitmap> gravatars = new HashMap<String, Bitmap>();
+	private HashMap<AttendantDTO, Bitmap> gravatars = new HashMap<AttendantDTO, Bitmap>();
 	
 	public PersonAdapter(Context context, int textViewResourceId,
 			ArrayList<AttendantDTO> items) {
@@ -97,23 +97,28 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
             cb.setTag(attendant);
             cb.setChecked(attendant.getStatus()== 1);
             cb.setOnCheckedChangeListener(this);
-            new DownloadImageTask((ImageView) v.findViewById(R.id.icon)).execute("http://www.gravatar.com/avatar/" + MD5Util.md5Hex(person.getEmailAddress()));
+
+            ImageView imageView = (ImageView) v.findViewById(R.id.icon);
+            if (gravatars.containsKey(attendant)) {
+            	imageView.setImageBitmap(gravatars.get(attendant));
+            } else {
+            	imageView.setImageResource(R.drawable.icon);
+            	new DownloadImageTask(imageView).execute(attendant);
+            }
         }
         return v;
     }
 	
-	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+	private class DownloadImageTask extends AsyncTask<AttendantDTO, Void, Bitmap> {
 		private final ImageView view;
 		public DownloadImageTask(ImageView view) {
 			this.view = view;
 		}
-	     protected Bitmap doInBackground(String... urls) {
+	     protected Bitmap doInBackground(AttendantDTO... attendants) {
 	    	try {
-	    		if (gravatars.containsKey(urls[0])) {
-	    			return gravatars.get(urls[0]);
-	    		}
-	    		Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(urls[0]).getContent());
-	    		gravatars.put(urls[0], bitmap);
+	    		String url = "http://www.gravatar.com/avatar/" + MD5Util.md5Hex(attendants[0].getPerson().getEmailAddress());
+	    		Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(url).getContent());
+	    		gravatars.put(attendants[0], bitmap);
 	            return bitmap;
 	 		} catch (Exception e) {
 	 			return null;
@@ -130,6 +135,10 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		AttendantDTO attendantDto = (AttendantDTO) buttonView.getTag();
+		if (attendantDto == null) {
+			return ;
+		}
+		attendantDto.setStatus((isChecked ? 1 : 0));
 		
 		RestClient restClient = null;
 		if(isChecked) {
@@ -144,12 +153,12 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 		try {
 			restClient.Execute(RestClient.RequestMethod.POST);
 			if (isChecked) {
-				Toast.makeText(this.getContext(), attendantDto.getPerson().getName() + " was registered!", Toast.LENGTH_SHORT);
+				Toast.makeText(this.getContext(), attendantDto.getPerson().getName() + " was registered!", Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(this.getContext(), attendantDto.getPerson().getName() + " is no longer registered!", Toast.LENGTH_SHORT);
+				Toast.makeText(this.getContext(), attendantDto.getPerson().getName() + " is no longer registered!", Toast.LENGTH_SHORT).show();
 			}
 		} catch (Exception e) {
-			Toast.makeText(this.getContext(), "An error occured registering attendant: " + e.getMessage(), Toast.LENGTH_LONG);
+			Toast.makeText(this.getContext(), "An error occured registering attendant: " + e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
 	}
 
