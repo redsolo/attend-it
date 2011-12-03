@@ -16,6 +16,20 @@ public class EventDTO implements Serializable {
 	private Calendar dateOfEvent;
 	
 	
+	public EventDTO() {}
+	
+	public EventDTO(Long id, String title, String eventHost, String place,
+			Calendar dateOfEvent) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.eventHost = eventHost;
+		this.place = place;
+		this.dateOfEvent = dateOfEvent;
+	}
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
