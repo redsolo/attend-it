@@ -2,6 +2,14 @@ package com.squeed.attendit.api;
 
 import java.util.List;
 
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
+import com.squeed.attendit.db.mock.DbMock;
+
+
+@Remote(RegistrationService.class)
+@Stateless
 public class RegistrationServiceBean implements RegistrationService {
 
 	@Override
@@ -36,8 +44,7 @@ public class RegistrationServiceBean implements RegistrationService {
 
 	@Override
 	public List<AttendantDTO> getAttendants(Long eventId) {
-		// TODO Auto-generated method stub
-		return null;
+		return DbMock.getAttendants();
 	}
 
 }
