@@ -194,8 +194,10 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 	    	try {
 	    		String url = "http://www.gravatar.com/avatar/" + MD5Util.md5Hex(attendants[0].getPerson().getEmailAddress());
 	    		Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(url).getContent());
-	    		gravatars.put(attendants[0], bitmap);
-	            return bitmap;
+	    		if (bitmap != null) {
+	    			gravatars.put(attendants[0], bitmap);
+	    		}
+	    		return bitmap;
 	 		} catch (Exception e) {
 	 			return null;
 	 		}
