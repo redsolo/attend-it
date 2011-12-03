@@ -9,8 +9,8 @@
     <EditText android:id="@+building_list/search_box" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="type to filter"
         android:inputType="text"
+	    android:layout_marginTop="5dip"
         android:maxLines="1"/>
 
     <!-- Set height to 0, and let the weight param expand it -->
