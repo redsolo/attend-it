@@ -2,49 +2,53 @@ package com.squeed.attendit.api;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import com.squeed.attendit.db.mock.DbMock;
+import com.squeed.attendit.db.mock.RegistrationDAO;
 
 
 @Remote(RegistrationService.class)
 @Stateless
 public class RegistrationServiceBean implements RegistrationService {
+	
+	private RegistrationDAO dao;
+	
+	@PostConstruct
+	public void init() {
+		dao = new DbMock();
+	}
 
 	@Override
 	public void register(String emailAddress) {
-		// TODO Auto-generated method stub
-
+		dao.register(emailAddress);
 	}
 
 	@Override
 	public void register(Long id) {
-		// TODO Auto-generated method stub
-
+		dao.register(id);
 	}
 
 	@Override
 	public void unregister(String emailAddress) {
-		// TODO Auto-generated method stub
-
+		dao.unregister(emailAddress);
 	}
 
 	@Override
 	public void unregister(Long id) {
-		// TODO Auto-generated method stub
-
+		dao.unregister(id);
 	}
 
 	@Override
 	public void update(Long id, PersonDTO person) {
-		// TODO Auto-generated method stub
-
+		dao.update(id, person);
 	}
 
 	@Override
 	public List<AttendantDTO> getAttendants(Long eventId) {
-		return DbMock.getAttendants();
+		return dao.getAttendants();
 	}
 
 }

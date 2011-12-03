@@ -21,14 +21,14 @@ public interface RegistrationService {
 	
 	@POST
 	@Path("/register/attendant/{id}")
-	public void register(Long id);
+	public void register(@PathParam("id") Long id);
 	
 	@POST
 	@Path("/unregister/{email}")
-	public void unregister(String emailAddress);
+	public void unregister(@PathParam("email") String emailAddress);
 
 	@POST
-	@Path("/register/attendant/{id}")
+	@Path("/unregister/attendant/{id}")
 	public void unregister(Long id);
 	
 	@PUT

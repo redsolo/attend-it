@@ -12,7 +12,7 @@ import com.squeed.attendit.api.AttendantDTO;
 import com.squeed.attendit.api.EventDTO;
 import com.squeed.attendit.api.PersonDTO;
 
-public class DbMock {
+public class DbMock implements RegistrationDAO {
 	
 	
 	
@@ -32,17 +32,56 @@ public class DbMock {
 	    JsonArray array = parser.parse(people).getAsJsonArray();
 
 	    for(int a = 0; a < array.size(); a++) {
-	    	personList.add(gson.fromJson(array.get(a), PersonDTO.class));
+	    	PersonDTO personDto = gson.fromJson(array.get(a), PersonDTO.class);
+	    	personDto.setId((long) a);
+	    	personList.add(personDto);
 	    	System.out.println("Added " + personList.get(a).getName() + " " +  personList.get(a).getMobilePhoneNr() + " " + personList.get(a).getUser());
 	    }    
 	    
 	    Long attId = 0L;
 	    for(PersonDTO person : personList) {
-	    	attendants.add(new AttendantDTO(attId, person, myEvent, 0));
+	    	attendants.add(new AttendantDTO(attId++, person, myEvent, 0));
 	    }
 	}
 	
-	public static List<AttendantDTO> getAttendants() {
+	public List<AttendantDTO> getAttendants() {
 		return attendants;
+	}
+
+	public void register(Long id) {
+		for(AttendantDTO attDto : attendants) {
+			if(attDto.getId().equals(id)) {
+				attDto.setStatus(1);
+			}
+		}
+	}
+
+	public void register(String emailAddress) {
+		for(AttendantDTO attDto : attendants) {
+			if(attDto.getPerson().getEmailAddress().equals(emailAddress)) {
+				attDto.setStatus(1);
+			}
+		}
+	}
+	
+	public void unregister(Long id) {
+		for(AttendantDTO attDto : attendants) {
+			if(attDto.getId().equals(id)) {
+				attDto.setStatus(0);
+			}
+		}
+	}
+
+	public void unregister(String emailAddress) {
+		for(AttendantDTO attDto : attendants) {
+			if(attDto.getPerson().getEmailAddress().equals(emailAddress)) {
+				attDto.setStatus(0);
+			}
+		}
+	}
+
+	public void update(Long id, PersonDTO person) {
+		personList.remove(person);
+		personList.add(person);
 	}
 }
