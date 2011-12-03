@@ -30,8 +30,9 @@ import com.google.gson.reflect.TypeToken;
 import com.squeed.attendit.api.AttendantDTO;
 
 public class AttendItActivity extends ListActivity {
-	
+
 	public static final String URL = "http://10.48.227.236:8080";
+	public static final String REGISTRATION_URL = URL + "/attendit/rest/registration/event/0/attendants";
 	
 	private ArrayList<AttendantDTO> attendants = new ArrayList<AttendantDTO>();
 	private PersonAdapter listAdapter;
@@ -44,7 +45,7 @@ public class AttendItActivity extends ListActivity {
 		setContentView(R.layout.person_list);
 
 		
-		RestClient client = new RestClient(URL + "/attendit/rest/registration/event/0/attendants");
+		RestClient client = new RestClient(REGISTRATION_URL);
 		try {
 			client.Execute(RestClient.RequestMethod.GET);
 			Type jsonType = new TypeToken<List<AttendantDTO>>(){}.getType();
