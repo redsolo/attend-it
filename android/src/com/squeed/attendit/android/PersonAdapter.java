@@ -29,7 +29,7 @@ import com.squeed.attendit.api.PersonDTO;
 
 public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filterable, OnCheckedChangeListener {
 	private ArrayList<AttendantDTO> attendants;
-	private HashMap<String, Bitmap> gravatars;
+	private HashMap<String, Bitmap> gravatars = new HashMap<String, Bitmap>();
 	
 	public PersonAdapter(Context context, int textViewResourceId,
 			ArrayList<AttendantDTO> items) {
