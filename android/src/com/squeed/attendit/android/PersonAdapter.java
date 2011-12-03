@@ -6,24 +6,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squeed.attendit.api.AttendantDTO;
 import com.squeed.attendit.api.PersonDTO;
 
@@ -107,7 +114,71 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
             	new DownloadImageTask(imageView).execute(attendant);
             }
         }
-        return v;
+        v.setTag(attendant.getPerson());
+        v.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				final PersonDTO person = (PersonDTO) v.getTag();
+
+				AlertDialog.Builder builder;
+
+				Context mContext = getContext();
+				LayoutInflater inflater = (LayoutInflater) mContext
+						.getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
+				View layout = inflater.inflate(R.layout.custom_dialog,
+						(ViewGroup) v.findViewById(R.id.custom_dialog));
+
+				final EditText editText = (EditText) layout
+						.findViewById(R.id.nameFld);
+				editText.setText(person.getName());
+
+				builder = new AlertDialog.Builder(mContext);
+				builder.setView(layout);
+				final AlertDialog alertDialog = builder.create();
+
+				final Button saveBtn = (Button) layout
+						.findViewById(R.id.savePoiNameBtn);
+				final Button cancelBtn = (Button) layout
+						.findViewById(R.id.cancelPoiNameBtn);
+
+				saveBtn.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						RestClient rc = new RestClient(AttendItActivity.URL
+								+ "/attendit/rest/registration/person/"
+								+ person.getId());
+						GsonBuilder builder = new GsonBuilder();				
+						Gson gson = builder.create();
+						
+						String json = gson.toJson(person, PersonDTO.class);
+						Log.i("PersonAdapter", "Person JSON: " + json);
+						rc.AddParam("person", json);
+						try {
+							rc.Execute(RestClient.RequestMethod.POST);
+							Toast.makeText(getContext(), "Successfully updated person", Toast.LENGTH_SHORT).show();
+							alertDialog.dismiss();
+						} catch (Exception e) {
+							Toast.makeText(getContext(), "An error occured saving person: " + e.getMessage(), Toast.LENGTH_LONG).show();
+						}
+					}
+				});
+
+				cancelBtn.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						alertDialog.dismiss();
+					}
+				});
+
+				alertDialog.show();
+
+				return false;
+			}
+		});
+		return v;
     }
 	
 	private class DownloadImageTask extends AsyncTask<AttendantDTO, Void, Bitmap> {
@@ -161,18 +232,18 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 		} catch (Exception e) {
 			Toast.makeText(this.getContext(), "An error occured registering attendant: " + e.getMessage(), Toast.LENGTH_SHORT).show();
 		}
-	}
+	}	
 
 	public boolean isShowAll() {
 		return showAll;
 	}
-
 	public void setShowAll(boolean showAll) {
 		clear();
-		
-		for (AttendantDTO attendant : attendants) {
-			if (showAll || attendant.getStatus() == 0) {
-				add(attendant);
+		if(attendants != null) {
+			for (AttendantDTO attendant : attendants) {
+				if (showAll || attendant.getStatus() == 0) {
+					add(attendant);
+				}
 			}
 		}
 		notifyDataSetChanged();

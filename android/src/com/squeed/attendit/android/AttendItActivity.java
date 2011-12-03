@@ -4,14 +4,25 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -44,8 +55,14 @@ public class AttendItActivity extends ListActivity {
 		}
 		
 		
+		
+		
+		
 		filterText = (EditText) findViewById(R.building_list.search_box);
 		filterText.addTextChangedListener(filterTextWatcher);
+		
+//		ListView lView = (ListView) getListView();		
+//		registerForContextMenu(lView);
 		
 		listAdapter = new PersonAdapter(this, R.layout.person_list_item, attendants);
 		setListAdapter(listAdapter);
@@ -87,6 +104,73 @@ public class AttendItActivity extends ListActivity {
 	        return super.onOptionsItemSelected(item);
 	    }
 	}
+	
+	
+	
+//	@Override
+//	public void onCreateContextMenu(ContextMenu menu, View v,
+//	    ContextMenuInfo menuInfo) {
+//	  if (v.getId()==android.R.id.list) {
+//	    String[] menuItems = new String[]{"Redigera", "Radera"};
+//	    for (int i = 0; i<menuItems.length; i++) {
+//	      menu.add(Menu.NONE, i, i, menuItems[i]);
+//	    }
+//	  }
+//	}
+//	
+//	@Override
+//	public boolean onContextItemSelected(MenuItem item) {
+//	  AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+//	  int menuItemIndex = item.getItemId();
+//	  
+//	  if(menuItemIndex == 0) {
+//		  // Edit POI
+//		  AlertDialog.Builder builder;				
+//
+//			Context mContext = AttendItActivity.this;
+//			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+//			View layout = inflater.inflate(R.layout.custom_dialog,
+//			                               (ViewGroup) findViewById(R.id.custom_dialog));
+//			
+//			final EditText editText = (EditText) layout.findViewById(R.id.nameFld);	
+//			//editText.setText(poi.getName());
+//			
+//			
+//			
+//			
+//			builder = new AlertDialog.Builder(mContext);
+//			builder.setView(layout);
+//			final AlertDialog alertDialog = builder.create();
+//			
+//			final Button saveBtn = (Button) layout.findViewById(R.id.savePoiNameBtn);
+//			final Button cancelBtn = (Button) layout.findViewById(R.id.cancelPoiNameBtn);
+//			
+//			saveBtn.setOnClickListener(new OnClickListener() {
+//				
+//				@Override
+//				public void onClick(View v) {
+//					
+//				}
+//			});
+//			
+//			cancelBtn.setOnClickListener(new OnClickListener() {
+//				
+//				@Override
+//				public void onClick(View v) {
+//					alertDialog.dismiss();
+//				}
+//			});
+//			
+//			alertDialog.show();
+//			
+//			
+//	  } else if(menuItemIndex == 1) {
+//		  
+//	  }	
+//	  return true;
+//	}
+	
+	
 
 	private TextWatcher filterTextWatcher = new TextWatcher() {
 		@Override

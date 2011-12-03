@@ -24,7 +24,8 @@ public class RestClient {
 	
 	public enum RequestMethod {
 		GET,
-		POST
+		POST,
+		PUT
 	}
 
     private ArrayList <NameValuePair> params;
@@ -101,6 +102,23 @@ public class RestClient {
                 break;
             }
             case POST:
+            {
+                HttpPost request = new HttpPost(url);
+
+                //add headers
+                for(NameValuePair h : headers)
+                {
+                    request.addHeader(h.getName(), h.getValue());
+                }
+
+                if(!params.isEmpty()){
+                    request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+                }
+
+                executeRequest(request, url);
+                break;
+            }
+            case PUT:
             {
                 HttpPost request = new HttpPost(url);
 

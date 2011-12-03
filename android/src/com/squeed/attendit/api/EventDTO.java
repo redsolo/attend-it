@@ -1,7 +1,6 @@
 package com.squeed.attendit.api;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class EventDTO implements Serializable {
 	/**
