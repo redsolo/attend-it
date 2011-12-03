@@ -1,7 +1,7 @@
 package com.squeed.attendit.api;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 
 public class EventDTO implements Serializable {
 	/**
@@ -13,13 +13,13 @@ public class EventDTO implements Serializable {
 	private String title;
 	private String eventHost;
 	private String place;
-	private Calendar dateOfEvent;
+	private String dateOfEvent;
 	
 	
 	public EventDTO() {}
 	
 	public EventDTO(Long id, String title, String eventHost, String place,
-			Calendar dateOfEvent) {
+			String dateOfEvent) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -54,10 +54,10 @@ public class EventDTO implements Serializable {
 	public void setPlace(String place) {
 		this.place = place;
 	}
-	public Calendar getDateOfEvent() {
+	public String getDateOfEvent() {
 		return dateOfEvent;
 	}
-	public void setDateOfEvent(Calendar dateOfEvent) {
+	public void setDateOfEvent(String dateOfEvent) {
 		this.dateOfEvent = dateOfEvent;
 	}
 	

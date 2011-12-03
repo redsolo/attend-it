@@ -6,13 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.squeed.attendit.api.AttendantDTO;
-import com.squeed.attendit.api.PersonDTO;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +16,18 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filterable, OnClickListener {
+import com.squeed.attendit.api.AttendantDTO;
+import com.squeed.attendit.api.PersonDTO;
 
+public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filterable, OnCheckedChangeListener {
 	private ArrayList<AttendantDTO> attendants;
 	private HashMap<String, Bitmap> gravatars;
 	
@@ -88,10 +89,10 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
             	bt.setText(person.getEmailAddress());
             }
             CheckBox cb = (CheckBox) v.findViewById(R.id.checkBox1);
-            cb.setOnClickListener(this);
+            cb.setOnCheckedChangeListener(this);
             ImageView iv = (ImageView) v.findViewById(R.id.icon);
             new DownloadImageTask(iv).execute("http://www.gravatar.com/avatar/" + MD5Util.md5Hex(person.getEmailAddress()));
-            v.setTag(person);
+            cb.setTag(person);
         }
         return v;
     }
@@ -122,7 +123,25 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 	 }
 
 	@Override
-	public void onClick(View view) {
-		// tell server to update
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		AttendantDTO attendantDto = (AttendantDTO) buttonView.getTag();
+		
+		RestClient restClient = null;
+		if(isChecked) {
+			restClient = new RestClient("http://192.168.43.213:8080/attendit/rest/registration/register/attendant/" + attendantDto.getId());			
+		} else {
+			restClient = new RestClient("http://192.168.43.213:8080/attendit/rest/registration/register/attendant/" + attendantDto.getId());
+		}
+		
+		try {
+			restClient.Execute(RestClient.RequestMethod.POST);
+			Toast.makeText(this.getContext(), attendantDto.getPerson().getName() + " was registered!", Toast.LENGTH_SHORT);
+		} catch (Exception e) {
+			Toast.makeText(this.getContext(), "An error occured registering attendant: " + e.getMessage(), Toast.LENGTH_LONG);
+		}
 	}
+
+
+		
+
 }

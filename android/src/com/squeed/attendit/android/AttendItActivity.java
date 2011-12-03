@@ -4,15 +4,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.squeed.attendit.api.AttendantDTO;
-
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.squeed.attendit.api.AttendantDTO;
 
 public class AttendItActivity extends ListActivity {
 	
