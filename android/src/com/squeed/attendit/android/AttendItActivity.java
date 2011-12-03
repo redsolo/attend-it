@@ -38,10 +38,11 @@ public class AttendItActivity extends ListActivity {
 			client.Execute(RestClient.RequestMethod.GET);
 			Type jsonType = new TypeToken<List<AttendantDTO>>(){}.getType();
 			attendants = new Gson().fromJson(client.getResponse(), jsonType);	
+			setTitle("Attend It - " + attendants.get(0).getEvent().getTitle());
 		} catch (Exception e) {			
 			Toast.makeText(this.getBaseContext(), "An error occured during retrieval: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
 		}
+		
 		
 		
 		filterText = (EditText) findViewById(R.building_list.search_box);
