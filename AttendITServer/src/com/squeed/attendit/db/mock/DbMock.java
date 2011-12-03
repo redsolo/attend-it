@@ -24,7 +24,11 @@ public class DbMock implements RegistrationDAO {
 	private static Calendar eventDate = new GregorianCalendar(2012, 1, 5, 17, 0, 0);
 	
 	private static List<PersonDTO> personList = new ArrayList<PersonDTO>();
-	private static EventDTO myEvent = new EventDTO(0L, "Javaforum Q1 2012", "Squeed", "Folkets Hus", eventDate);
+	private static EventDTO javaForumEvent = new EventDTO(0L, "Javaforum Q1 2012", "Squeed", "Folkets Hus", eventDate);
+	private static EventDTO nForumEvent = new EventDTO(0L, "Javaforum Q1 2012", "Squeed", "Folkets Hus", eventDate);
+	
+	private static List<EventDTO> events = new ArrayList<EventDTO>();
+	
 	private static List<AttendantDTO> attendants = new ArrayList<AttendantDTO>();
 	static {
 		Gson gson = new Gson();
@@ -40,8 +44,15 @@ public class DbMock implements RegistrationDAO {
 	    
 	    Long attId = 0L;
 	    for(PersonDTO person : personList) {
-	    	attendants.add(new AttendantDTO(attId++, person, myEvent, 0));
+	    	attendants.add(new AttendantDTO(attId++, person, javaForumEvent, 0));
 	    }
+	    
+	    events.add(javaForumEvent);
+	    events.add(nForumEvent);
+	}
+	
+	public List<EventDTO> getEvents() {
+		return events;
 	}
 	
 	public List<AttendantDTO> getAttendants() {

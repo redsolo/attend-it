@@ -3,9 +3,13 @@ package com.squeed.attendit.db.mock;
 import java.util.List;
 
 import com.squeed.attendit.api.AttendantDTO;
+import com.squeed.attendit.api.EventDTO;
 import com.squeed.attendit.api.PersonDTO;
 
 public interface RegistrationDAO {
+	
+	public List<EventDTO> getEvents();
+	
 	public List<AttendantDTO> getAttendants();
 
 	public void register(Long id);
