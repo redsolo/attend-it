@@ -27,7 +27,7 @@
     </target>
 	
 	<target name="deploy" depends="war">
-		<copy tofile="../../jboss/standalone/deployments/attendit.war" 
+		<copy tofile="../../../jboss/standalone/deployments/attendit.war" 
 					  file="attendit.war"/>
 		   		<echo>Deployed AttendIT.war</echo>
 	</target>

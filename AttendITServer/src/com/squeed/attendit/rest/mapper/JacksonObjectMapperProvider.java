@@ -13,7 +13,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * JAX-RS provider used to configure the Jackson JSON de/serialization 
  * of dates. 
  * 
- * @author andrim
+ * @author Erik
  */
 @Provider
 @Produces("application/json")

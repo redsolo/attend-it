@@ -11,9 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("registration")
-//@Produces("application/json")
 @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
-//@Consumes("application/json")
 @Consumes(MediaType.APPLICATION_JSON + "; charset=UTF-8")
 public interface RegistrationService {
 	

@@ -3,23 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/gson-1.7.1.jar"/>
-	<classpathentry kind="lib" path="lib/resteasy-jackson-provider-2.0.1.GA.jar"/>
-	<classpathentry kind="lib" path="lib/resteasy-jaxb-provider-2.0.1.GA.jar"/>
-	<classpathentry kind="lib" path="lib/resteasy-jaxrs-2.0.1.GA.jar"/>
-	<classpathentry kind="lib" path="lib/resteasy-jsapi-2.0.1.GA.jar"/>
-	<classpathentry kind="lib" path="lib/jaxrs-api-2.0.1.GA.jar"/>
-	<classpathentry kind="lib" path="lib/jee6/javax.annotation.jar"/>
-	<classpathentry kind="lib" path="lib/jee6/javax.ejb.jar"/>
-	<classpathentry kind="lib" path="lib/jee6/javax.jms.jar"/>
-	<classpathentry kind="lib" path="lib/jee6/javax.persistence.jar"/>
-	<classpathentry kind="lib" path="lib/jee6/javax.resource.jar"/>
-	<classpathentry kind="lib" path="lib/jee6/javax.servlet.jar"/>
-	<classpathentry kind="lib" path="lib/jee6/javax.servlet.jsp.jstl.jar"/>
-	<classpathentry kind="lib" path="lib/jee6/javax.transaction.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-core-asl-1.5.3.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-jaxrs-1.5.3.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-mapper-asl-1.5.3.jar"/>
-	<classpathentry kind="lib" path="lib/jboss-ejb-api-4.2.1.GA.jar"/>
-	<classpathentry kind="lib" path="lib/jboss-ejb3-4.2.3.GA.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-ejb-api_3.1_spec-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-jaxrs-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-asl-1.6.3.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-jaxrs-1.6.3.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-mapper-asl-1.6.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
