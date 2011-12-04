@@ -2,6 +2,7 @@ package com.squeed.attendit.db.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
@@ -12,6 +13,8 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Note {
+	
+	@Id
 	@GeneratedValue
 	private Long id;
 	

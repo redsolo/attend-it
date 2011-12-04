@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -15,12 +16,16 @@ import javax.persistence.TemporalType;
  * Since many events are reoccuring, this identifies a event "group" persons can subscribe to.
  * 
  * E.g. "JavaForum" or "nForum" are events, while "JavaForum Q2 2012" or "nForum Windows 8 special" are EventInstance(s).
+ * 
+ * TODO decide whether this is a good naming convention or not...
+ * 
  * @author Erik
  *
  */
 @Entity
 public class Event {
 	
+	@Id
 	@GeneratedValue
 	private Long id;
 	

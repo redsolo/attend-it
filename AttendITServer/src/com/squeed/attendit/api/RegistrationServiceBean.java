@@ -6,8 +6,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
-import com.squeed.attendit.db.mock.DbMock;
-import com.squeed.attendit.db.mock.RegistrationDAO;
+import com.squeed.attendit.dao.registration.RegistrationDAO;
+import com.squeed.attendit.dao.registration.RegistrationDAOImpl;
+import com.squeed.attendit.db.entity.Person;
+import com.squeed.attendit.db.entity.Registration;
+import com.squeed.attendit.db.entity.RegistrationStatus;
 
 
 @Remote(RegistrationService.class)
@@ -18,37 +21,35 @@ public class RegistrationServiceBean implements RegistrationService {
 	
 	@PostConstruct
 	public void init() {
-		dao = new DbMock();
+		//dao = new DbMock();
+		dao = new RegistrationDAOImpl();
+	}
+
+	
+	@Override
+	public void register(Long registrationId) {
+		Registration registration = dao.getRegistration(registrationId);
+		registration.setStatus(RegistrationStatus.ARRIVED);
+		dao.updateRegistration(registration);
 	}
 
 	@Override
-	public void register(String emailAddress) {
-		dao.register(emailAddress);
+	public void unregister(Long registrationId) {
+		Registration registration = dao.getRegistration(registrationId);
+		registration.setStatus(RegistrationStatus.REGISTERED);
+		dao.updateRegistration(registration);
 	}
 
 	@Override
-	public void register(Long id) {
-		dao.register(id);
+	public void update(Long personId, PersonDTO person) {
+		Person dbPerson = dao.getPerson(personId);
+		dbPerson.mergeValuesFrom(person);
+		dao.updatePerson(dbPerson);
 	}
 
 	@Override
-	public void unregister(String emailAddress) {
-		dao.unregister(emailAddress);
+	public List<RegistrationDTO> getRegistrations(Long eventId) {
+		List<Registration> registrations = dao.getRegistrations(eventId);
+		return Registration.toDtoList(registrations);
 	}
-
-	@Override
-	public void unregister(Long id) {
-		dao.unregister(id);
-	}
-
-	@Override
-	public void update(Long id, PersonDTO person) {
-		dao.update(id, person);
-	}
-
-	@Override
-	public List<AttendantDTO> getAttendants(Long eventId) {
-		return dao.getAttendants();
-	}
-
 }

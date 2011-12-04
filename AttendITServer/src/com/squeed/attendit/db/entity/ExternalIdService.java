@@ -2,6 +2,7 @@ package com.squeed.attendit.db.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 @Table(name="ext_id_service")
 public class ExternalIdService {
 
+	@Id
 	@GeneratedValue
 	private Long id;
 	

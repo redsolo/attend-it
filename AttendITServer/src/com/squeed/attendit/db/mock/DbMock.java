@@ -8,11 +8,11 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import com.squeed.attendit.api.AttendantDTO;
 import com.squeed.attendit.api.EventDTO;
 import com.squeed.attendit.api.PersonDTO;
+import com.squeed.attendit.api.RegistrationDTO;
 
-public class DbMock implements RegistrationDAO {
+public class DbMock {
 	
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	
@@ -26,7 +26,7 @@ public class DbMock implements RegistrationDAO {
 	
 	private static List<EventDTO> events = new ArrayList<EventDTO>();
 	
-	private static List<AttendantDTO> attendants = new ArrayList<AttendantDTO>();
+	private static List<RegistrationDTO> attendants = new ArrayList<RegistrationDTO>();
 	static {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
@@ -41,56 +41,113 @@ public class DbMock implements RegistrationDAO {
 	    
 	    Long attId = 0L;
 	    for(PersonDTO person : personList) {
-	    	attendants.add(new AttendantDTO(attId++, person, javaForumEvent, 0));
+	    	attendants.add(new RegistrationDTO(attId++, person, javaForumEvent.getId(), 0));
 	    }
 	    
 	    events.add(javaForumEvent);
 	    events.add(nForumEvent);
 	}
 	
-	public List<EventDTO> getEvents() {
-		return events;
-	}
-	
-	public List<AttendantDTO> getAttendants() {
-		return attendants;
-	}
-
-	public void register(Long id) {
-		for(AttendantDTO attDto : attendants) {
-			if(attDto.getId().equals(id)) {
-				attDto.setStatus(1);
-			}
-		}
-	}
-
-	public void register(String emailAddress) {
-		for(AttendantDTO attDto : attendants) {
-			if(attDto.getPerson().getEmailAddress().equals(emailAddress)) {
-				attDto.setStatus(1);
-			}
-		}
-	}
-	
-	public void unregister(Long id) {
-		for(AttendantDTO attDto : attendants) {
-			if(attDto.getId().equals(id)) {
-				attDto.setStatus(0);
-			}
-		}
-	}
-
-	public void unregister(String emailAddress) {
-		for(AttendantDTO attDto : attendants) {
-			if(attDto.getPerson().getEmailAddress().equals(emailAddress)) {
-				attDto.setStatus(0);
-			}
-		}
-	}
-
-	public void update(Long id, PersonDTO person) {
-		System.out.println("Updated request for person " + id);
-		personList.remove(person);
-		personList.add(person);
-	}
+//	public List<EventDTO> getEvents() {
+//		return events;
+//	}
+//	@Override
+//	public List<RegistrationDTO> getAttendantsOfEvent() {
+//		return attendants;
+//	}
+//	@Override
+//	public void register(Long id) {
+//		for(RegistrationDTO attDto : attendants) {
+//			if(attDto.getId().equals(id)) {
+//				attDto.setStatus(1);
+//			}
+//		}
+//	}
+//	@Override
+//	public void register(String emailAddress) {
+//		for(RegistrationDTO attDto : attendants) {
+//			if(attDto.getPerson().getEmailAddress().equals(emailAddress)) {
+//				attDto.setStatus(1);
+//			}
+//		}
+//	}
+//	@Override
+//	public void unregister(Long id) {
+//		for(RegistrationDTO attDto : attendants) {
+//			if(attDto.getId().equals(id)) {
+//				attDto.setStatus(0);
+//			}
+//		}
+//	}
+//	@Override
+//	public void unregister(String emailAddress) {
+//		for(RegistrationDTO attDto : attendants) {
+//			if(attDto.getPerson().getEmailAddress().equals(emailAddress)) {
+//				attDto.setStatus(0);
+//			}
+//		}
+//	}
+//	@Override
+//	public void update(Long id, PersonDTO person) {
+//		System.out.println("Updated request for person " + id);
+//		personList.remove(person);
+//		personList.add(person);
+//	}
+//
+//	@Override
+//	public List<EventInstance> getEvents() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public List<Registration> getRegistrations(Long eventId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public EventInstance getEvent(Long eventId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Registration getRegistration(Long registrationId) {
+//		for(RegistrationDTO attDto : attendants) {
+//			if(attDto.getId().equals(registrationId)) {
+//				return attDto.;
+//			}
+//		}
+//	}
+//
+//	@Override
+//	public void updateRegistration(Registration registration) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public Registration createRegistration(Registration registration) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Person getPerson(Long personId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public void updatePerson(Person person) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public Person createPerson(Person person) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }

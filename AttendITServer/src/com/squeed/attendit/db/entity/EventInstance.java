@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,6 +18,7 @@ import javax.persistence.TemporalType;
 @Table(name="event_instance")
 public class EventInstance {
 
+	@Id
 	@GeneratedValue
 	private Long id;
 	
@@ -40,7 +43,7 @@ public class EventInstance {
 	@ManyToMany
 	private List<User> administrators = new ArrayList<User>();
 	
-	@ManyToOne
+	@OneToMany
 	private List<Registration> registrations = new ArrayList<Registration>();
 	
 	@ManyToOne

@@ -2,7 +2,7 @@ package com.squeed.attendit.api;
 
 import java.io.Serializable;
 
-public class AttendantDTO implements Serializable {
+public class RegistrationDTO implements Serializable {
 	/**
 	 * 
 	 */
@@ -10,19 +10,17 @@ public class AttendantDTO implements Serializable {
 	
 	private Long id;
 	private PersonDTO person;
-	private EventDTO event;
-	
+	private Long eventId;
 	private int status = 0; // 0 = not arrived, 1 = arrived;
 	
-	public AttendantDTO() {}
+	public RegistrationDTO() {}
 	
 	
 
-	public AttendantDTO(Long id, PersonDTO person, EventDTO event, int status) {
+	public RegistrationDTO(Long id, PersonDTO person, Long eventId, int status) {
 		super();
 		this.id = id;
 		this.person = person;
-		this.event = event;
 		this.status = status;
 	}
 
@@ -42,20 +40,23 @@ public class AttendantDTO implements Serializable {
 		this.person = person;
 	}
 
-	public EventDTO getEvent() {
-		return event;
+	public Long getEventId() {
+		return eventId;
 	}
-
-	public void setEvent(EventDTO event) {
-		this.event = event;
-	}
-
+	
 	public int getStatus() {
 		return status;
 	}
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+
+
+	public void setEventId(Long id2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

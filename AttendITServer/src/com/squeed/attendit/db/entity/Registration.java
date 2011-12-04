@@ -1,13 +1,20 @@
 package com.squeed.attendit.db.entity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.squeed.attendit.api.RegistrationDTO;
 
 /**
  * Encapsulates a single registration for a person to an event.
@@ -19,6 +26,7 @@ import javax.persistence.TemporalType;
 @Table(name="registration")
 public class Registration {
 
+	@Id
 	@GeneratedValue
 	private Long id;
 	
@@ -34,7 +42,7 @@ public class Registration {
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Calendar registrationDate;
 	
-	@ManyToOne
+	@Enumerated(EnumType.STRING)
 	private RegistrationStatus status;
 
 	public Long getId() {
@@ -76,6 +84,22 @@ public class Registration {
 	public void setStatus(RegistrationStatus status) {
 		this.status = status;
 	}
-	
-	
+
+	public static List<RegistrationDTO> toDtoList(List<Registration> registrations) {
+		List<RegistrationDTO> list = new ArrayList<RegistrationDTO>();
+		for(Registration reg : registrations) {
+			list.add(reg.toDto());
+		}
+		
+		return list;
+	}
+
+	public RegistrationDTO toDto() {
+		RegistrationDTO dto = new RegistrationDTO();
+		dto.setId(this.id);
+		dto.setEventId(this.getEvent().getId());
+		dto.setPerson(this.getPerson().toDto());
+		dto.setStatus(this.getStatus().getStatusCode());
+		return dto;
+	}
 }

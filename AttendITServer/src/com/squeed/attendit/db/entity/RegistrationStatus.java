@@ -1,39 +1,31 @@
 package com.squeed.attendit.db.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="registration_status")
-public class RegistrationStatus {
+
+public enum RegistrationStatus {
 	
-	@GeneratedValue
-	private Long id;
+	REGISTERED(0), ARRIVED(1), UNREGISTERED(2); 
 	
-	@Column(name="status_code")
-	private Integer statusCode;
-	
-	private String name;
-	
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public Integer getStatusCode() {
-		return statusCode;
-	}
-	public void setStatusCode(Integer statusCode) {
+	private RegistrationStatus(int statusCode) {
 		this.statusCode = statusCode;
 	}
-	public String getName() {
-		return name;
+	
+	private int statusCode;
+	
+	public int getStatusCode() {
+		return statusCode;
 	}
-	public void setName(String name) {
-		this.name = name;
+	
+	public static RegistrationStatus fromCode(int statusCode) {
+		switch(statusCode) {
+		case 0:
+			return REGISTERED;
+		case 1:
+			return ARRIVED;
+		case 2:
+			return UNREGISTERED;
+		default:
+			return REGISTERED;
+		}
 	}
 }

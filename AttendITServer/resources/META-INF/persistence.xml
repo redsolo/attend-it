@@ -2,10 +2,24 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="attendit" transaction-type="RESOURCE_LOCAL" >
+    
+    	<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+    	
+    	<class>com.squeed.attendit.db.entity.Event</class>
+    	<class>com.squeed.attendit.db.entity.EventInstance</class>
+    	<class>com.squeed.attendit.db.entity.ExternalIdentifier</class>
+    	<class>com.squeed.attendit.db.entity.ExternalIdService</class>
+    	<class>com.squeed.attendit.db.entity.Note</class>
+    	<class>com.squeed.attendit.db.entity.Person</class>
+    	<class>com.squeed.attendit.db.entity.Registration</class>
+    	<class>com.squeed.attendit.db.entity.RegistrationStatus</class>
+    	<class>com.squeed.attendit.db.entity.Setting</class>
+    	<class>com.squeed.attendit.db.entity.User</class>
+    	
         <properties>
            
             <!-- <property name="javax.persistence.jdbc.url" value="jdbc:h2:c:/work/db/attendit"/> -->
-
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>
 </persistence>

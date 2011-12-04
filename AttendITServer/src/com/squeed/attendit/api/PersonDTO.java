@@ -22,7 +22,7 @@ public class PersonDTO implements Serializable {
 		this.id = id;
 	}
 	public String getEmailAddress() {
-		return getUser() + "@squeed.com";
+		return emailAddress;
 	}
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;

@@ -6,9 +6,13 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.squeed.attendit.api.PersonDTO;
 
 /**
  * Contains data about a person.
@@ -19,12 +23,14 @@ import javax.persistence.TemporalType;
 @Entity
 public class Person {
 	
+	@Id
 	@GeneratedValue
 	private Long id;
 	
 	private String name;
 	private String email;
 	private String phone;
+	private String company;
 	
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Calendar createdDate;
@@ -38,8 +44,8 @@ public class Person {
 	/**
 	 * Used to map the events a person wants invites to.
 	 */
-	@OneToMany
-	private List<EventInstance> eventSubscriptions = new ArrayList<EventInstance>();
+	@ManyToMany
+	private List<Event> eventSubscriptions = new ArrayList<Event>();
 	
 	/**
 	 * Actual event registrations.
@@ -79,6 +85,30 @@ public class Person {
 		this.phone = phone;
 	}
 
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public List<Event> getEventSubscriptions() {
+		return eventSubscriptions;
+	}
+
+	public void setEventSubscriptions(List<Event> eventSubscriptions) {
+		this.eventSubscriptions = eventSubscriptions;
+	}
+
+	public List<Registration> getRegistrations() {
+		return registrations;
+	}
+
+	public void setRegistrations(List<Registration> registrations) {
+		this.registrations = registrations;
+	}
+
 	public Calendar getCreatedDate() {
 		return createdDate;
 	}
@@ -102,7 +132,26 @@ public class Person {
 	public void setExternalIdentifiers(List<ExternalIdentifier> externalIdentifiers) {
 		this.externalIdentifiers = externalIdentifiers;
 	}
+
+	public PersonDTO toDto() {		
+		PersonDTO dto = new PersonDTO();
+		dto.setId(this.id);
+		dto.setCompany(this.company);
+		dto.setEmailAddress(this.email);
+		dto.setMobilePhoneNr(this.phone);
+		dto.setName(this.name);
+		
+		// FIXME: Ugly hack, sets the first saved external identifier, if present... format is [vendor]:[identifier], eg. gravatar:user.name
+		dto.setUser(this.getExternalIdentifiers().size() > 0 ? this.getExternalIdentifiers().get(0).getExternalIdService().getName() + ":" + this.getExternalIdentifiers().get(0).getValue() : null);
+		return dto;
+	}
 	
-	
-	
+	public void mergeValuesFrom(PersonDTO person) {
+		this.setEmail(person.getEmailAddress());
+		this.setName(person.getName());
+		this.setCompany(person.getCompany());
+		this.setPhone(person.getMobilePhoneNr());
+		
+		// FIXME something to set user (external identifier) properly...
+	}
 }
