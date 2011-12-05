@@ -27,14 +27,14 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.squeed.attendit.api.AttendantDTO;
+import com.squeed.attendit.api.RegistrationDTO;
 
 public class AttendItActivity extends ListActivity {
 
 	public static final String URL = "http://10.48.227.236:8080";
 	public static final String REGISTRATION_URL = URL + "/attendit/rest/registration/event/0/attendants";
 	
-	private ArrayList<AttendantDTO> attendants = new ArrayList<AttendantDTO>();
+	private ArrayList<RegistrationDTO> attendants = new ArrayList<RegistrationDTO>();
 	private PersonAdapter listAdapter;
 	private EditText filterText;
 
@@ -48,9 +48,9 @@ public class AttendItActivity extends ListActivity {
 		RestClient client = new RestClient(REGISTRATION_URL);
 		try {
 			client.Execute(RestClient.RequestMethod.GET);
-			Type jsonType = new TypeToken<List<AttendantDTO>>(){}.getType();
+			Type jsonType = new TypeToken<List<RegistrationDTO>>(){}.getType();
 			attendants = new Gson().fromJson(client.getResponse(), jsonType);	
-			setTitle("Attend It - " + attendants.get(0).getEvent().getTitle());
+			// setTitle("Attend It - " + attendants.get(0).getEvent().getTitle());
 		} catch (Exception e) {			
 			Toast.makeText(this.getBaseContext(), "An error occured during retrieval: " + e.getMessage(), Toast.LENGTH_SHORT).show();
 		}

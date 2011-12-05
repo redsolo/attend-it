@@ -31,26 +31,26 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squeed.attendit.api.AttendantDTO;
+import com.squeed.attendit.api.RegistrationDTO;
 import com.squeed.attendit.api.PersonDTO;
 
-public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filterable, OnCheckedChangeListener {
+public class PersonAdapter extends ArrayAdapter<RegistrationDTO> implements Filterable, OnCheckedChangeListener {
 	
 	private boolean showAll;
 	
-	private ArrayList<AttendantDTO> attendants;
-	private HashMap<AttendantDTO, Bitmap> gravatars = new HashMap<AttendantDTO, Bitmap>();
+	private ArrayList<RegistrationDTO> attendants;
+	private HashMap<RegistrationDTO, Bitmap> gravatars = new HashMap<RegistrationDTO, Bitmap>();
 	
 	public PersonAdapter(Context context, int textViewResourceId,
-			ArrayList<AttendantDTO> items) {
-		super(context, textViewResourceId, new ArrayList<AttendantDTO>());
+			ArrayList<RegistrationDTO> items) {
+		super(context, textViewResourceId, new ArrayList<RegistrationDTO>());
 		this.attendants = items;
 		setShowAll(false);
 	}
 	
-	private List<AttendantDTO> getFilteredResults(CharSequence constraint) {
-		List<AttendantDTO> list = new ArrayList<AttendantDTO>();
-		for (AttendantDTO attendant : attendants) {
+	private List<RegistrationDTO> getFilteredResults(CharSequence constraint) {
+		List<RegistrationDTO> list = new ArrayList<RegistrationDTO>();
+		for (RegistrationDTO attendant : attendants) {
 			PersonDTO person = attendant.getPerson();
 			if (person.getName().toLowerCase().contains(constraint.toString().toLowerCase()) && 
 					(attendant.getStatus() == 0)) {
@@ -66,7 +66,7 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 			@Override
 			protected void publishResults(CharSequence constraint, FilterResults results) {
 				PersonAdapter.this.clear();
-				for (AttendantDTO attendant : (ArrayList<AttendantDTO>) results.values) {
+				for (RegistrationDTO attendant : (ArrayList<RegistrationDTO>) results.values) {
 					PersonAdapter.this.add(attendant);	
 				}				
 			    PersonAdapter.this.notifyDataSetChanged();
@@ -74,7 +74,7 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 		
 			@Override
 			protected FilterResults performFiltering(CharSequence constraint) {
-				List<AttendantDTO> filteredResults = getFilteredResults(constraint);
+				List<RegistrationDTO> filteredResults = getFilteredResults(constraint);
 	            FilterResults results = new FilterResults();
 	            results.values = filteredResults;
 	            return results;
@@ -90,7 +90,7 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
             LayoutInflater vi = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(R.layout.person_list_item, null);
         }
-        AttendantDTO attendant = getItem(position);
+        RegistrationDTO attendant = getItem(position);
         if (attendant != null) {
             PersonDTO person = attendant.getPerson();
             TextView tt = (TextView) v.findViewById(R.id.toptext);
@@ -185,12 +185,12 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 		return v;
     }
 	
-	private class DownloadImageTask extends AsyncTask<AttendantDTO, Void, Bitmap> {
+	private class DownloadImageTask extends AsyncTask<RegistrationDTO, Void, Bitmap> {
 		private final ImageView view;
 		public DownloadImageTask(ImageView view) {
 			this.view = view;
 		}
-	     protected Bitmap doInBackground(AttendantDTO... attendants) {
+	     protected Bitmap doInBackground(RegistrationDTO... attendants) {
 	    	try {
 	    		String url = "http://www.gravatar.com/avatar/" + MD5Util.md5Hex(attendants[0].getPerson().getEmailAddress());
 	    		Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(url).getContent());
@@ -212,7 +212,7 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		AttendantDTO attendantDto = (AttendantDTO) buttonView.getTag();
+		RegistrationDTO attendantDto = (RegistrationDTO) buttonView.getTag();
 		if (attendantDto == null) {
 			return ;
 		}
@@ -246,7 +246,7 @@ public class PersonAdapter extends ArrayAdapter<AttendantDTO> implements Filtera
 	public void setShowAll(boolean showAll) {
 		clear();
 		if(attendants != null) {
-			for (AttendantDTO attendant : attendants) {
+			for (RegistrationDTO attendant : attendants) {
 				if (showAll || attendant.getStatus() == 0) {
 					add(attendant);
 				}
