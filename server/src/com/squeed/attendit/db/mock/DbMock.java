@@ -16,8 +16,38 @@ public class DbMock {
 	
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	
-	private static String people = "[{\"mobilePhoneNr\": \"0733205177\", \"name\": \"Adam Lith\", \"user\": \"adam.lith\"}, {\"mobilePhoneNr\": \"0722142558\", \"name\": \"Anders Sjöberg\", \"user\": \"anders.sjoberg\"}, {\"mobilePhoneNr\": \"0703449075\", \"name\": \"Andreas Pringle\", \"user\": \"andreas.pringle\"}, {\"mobilePhoneNr\": \"0702757015\", \"name\": \"Daniel Eriksson\", \"user\": \"daniel.eriksson\"}, {\"mobilePhoneNr\": \"0733992721\", \"name\": \"Erik Lupander\", \"user\": \"erik.lupander\"}, {\"mobilePhoneNr\": \"0768800763\", \"name\": \"Erik Ramfelt\", \"user\": \"erik.ramfelt\"}, {\"mobilePhoneNr\": \"0739306403\", \"name\": \"Fredrik Corneliusson\", \"user\": \"fredrik.corneliusson\"}, {\"mobilePhoneNr\": \"0727330054\", \"name\": \"Fredrik Normén\", \"user\": \"fredrik.normen\"}, {\"mobilePhoneNr\": \"0702778511\", \"name\": \"Fredrik Wendt\", \"user\": \"fredrik.wendt\"}, {\"mobilePhoneNr\": \"0702224459\", \"name\": \"Janne Hasslöf\", \"user\": \"janne.hasslof\"}, {\"mobilePhoneNr\": \"0738515210\", \"name\": \"Johan Normén\", \"user\": \"johan.normen\"}, {\"mobilePhoneNr\": \"0738531013\", \"name\": \"John Tjust\", \"user\": \"john.tjust\"}, {\"mobilePhoneNr\": \"0736545987\", \"name\": \"Jonas Enlund\", \"user\": \"jonas.enlund\"}, {\"mobilePhoneNr\": \"0739890278\", \"name\": \"Julia Klingvall\", \"user\": \"julia.klingvall\"}, {\"mobilePhoneNr\": \"0733704722\", \"name\": \"Kristoffer Teuber\", \"user\": \"kristoffer.teuber\"}, {\"mobilePhoneNr\": \"0708156463\", \"name\": \"Linus Norén\", \"user\": \"linus.noren\"}, {\"mobilePhoneNr\": \"0761023854\", \"name\": \"Magnus Härlin\", \"user\": \"magnus.harlin\"}, {\"mobilePhoneNr\": \"0708221771\", \"name\": \"Markus Wahl\", \"user\": \"markus.wahl\"}, {\"mobilePhoneNr\": \"0708430248\", \"name\": \"Martin Jönsson\", \"user\": \"martin.jonsson\"}, {\"mobilePhoneNr\": \"0730282823\", \"name\": \"Martin Woxneryd\", \"user\": \"martin.woxneryd\"}, {\"mobilePhoneNr\": \"0702469109\", \"name\": \"Mats Nilsson\", \"user\": \"mats.nilsson\"}, {\"mobilePhoneNr\": \"0736002767\", \"name\": \"Mattias Sandelin\", \"user\": \"mattias.sandelin\"}, {\"mobilePhoneNr\": \"0702438761\", \"name\": \"Niclas Åstrand\", \"user\": \"niclas.astrand\"}, {\"mobilePhoneNr\": \"0702022133\", \"name\": \"Niklas Johansson\", \"user\": \"niklas.johansson\"}, {\"mobilePhoneNr\": \"0702109203\", \"name\": \"Ola Klasson\", \"user\": \"ola.klasson\"}, {\"mobilePhoneNr\": \"0708618511\", \"name\": \"Peter Lindh\", \"user\": \"peter.lindh\"}, {\"mobilePhoneNr\": \"0703286086\", \"name\": \"Pierre Ingmansson\", \"user\": \"pierre.ingmansson\"}, {\"mobilePhoneNr\": \"0709100528\", \"name\": \"Rikard Thulin\", \"user\": \"rikard.thulin\"}, {\"mobilePhoneNr\": \"0709723864\", \"name\": \"Tomas Trolltoft\", \"user\": \"tomas.trolltoft\"}, {\"mobilePhoneNr\": \"0703333134\", \"name\": \"Torbjörn Karlsson\", \"user\": \"torbjorn.karlsson\"}, {\"mobilePhoneNr\": \"0702751019\", \"name\": \"Wincent Papousek\", \"user\": \"wincent.papousek\"}]\r\n";
-	
+	private static final String people = "[" +
+			"{\"phone\": \"0733205177\", \"name\": \"Adam Lith\", \"user\": \"adam.lith\"}, " + 
+			"{\"phone\": \"0722142558\", \"name\": \"Anders SjÃ¶berg\", \"user\": \"anders.sjoberg\"}, " + 
+			"{\"phone\": \"0703449075\", \"name\": \"Andreas Pringle\", \"user\": \"andreas.pringle\"}, " + 
+			"{\"phone\": \"0702757015\", \"name\": \"Daniel Eriksson\", \"user\": \"daniel.eriksson\"}, " + 
+			"{\"phone\": \"0733992721\", \"name\": \"Erik Lupander\", \"user\": \"erik.lupander\"}, " + 
+			"{\"phone\": \"0768800763\", \"name\": \"Erik Ramfelt\", \"user\": \"erik.ramfelt\"}, " + 
+			"{\"phone\": \"0739306403\", \"name\": \"Fredrik Corneliusson\", \"user\": \"fredrik.corneliusson\"}, " + 
+			"{\"phone\": \"0727330054\", \"name\": \"Fredrik NormÃ©n\", \"user\": \"fredrik.normen\"}, " + 
+			"{\"phone\": \"0702778511\", \"name\": \"Fredrik Wendt\", \"user\": \"fredrik.wendt\"}, " + 
+			"{\"phone\": \"0702224459\", \"name\": \"Janne HasslÃ¶f\", \"user\": \"janne.hasslof\"}, " + 
+			"{\"phone\": \"0738515210\", \"name\": \"Johan NormÃ©n\", \"user\": \"johan.normen\"}, " + 
+			"{\"phone\": \"0738531013\", \"name\": \"John Tjust\", \"user\": \"john.tjust\"}, " + 
+			"{\"phone\": \"0736545987\", \"name\": \"Jonas Enlund\", \"user\": \"jonas.enlund\"}, " + 
+			"{\"phone\": \"0739890278\", \"name\": \"Julia Klingvall\", \"user\": \"julia.klingvall\"}, " + 
+			"{\"phone\": \"0733704722\", \"name\": \"Kristoffer Teuber\", \"user\": \"kristoffer.teuber\"}, " + 
+			"{\"phone\": \"0708156463\", \"name\": \"Linus NorÃ©n\", \"user\": \"linus.noren\"}, " + 
+			"{\"phone\": \"0761023854\", \"name\": \"Magnus HÃ¤rlin\", \"user\": \"magnus.harlin\"}, " + 
+			"{\"phone\": \"0708221771\", \"name\": \"Markus Wahl\", \"user\": \"markus.wahl\"}, " + 
+			"{\"phone\": \"0708430248\", \"name\": \"Martin JÃ¶nsson\", \"user\": \"martin.jonsson\"}, " + 
+			"{\"phone\": \"0730282823\", \"name\": \"Martin Woxneryd\", \"user\": \"martin.woxneryd\"}, " + 
+			"{\"phone\": \"0702469109\", \"name\": \"Mats Nilsson\", \"user\": \"mats.nilsson\"}, " + 
+			"{\"phone\": \"0736002767\", \"name\": \"Mattias Sandelin\", \"user\": \"mattias.sandelin\"}, " + 
+			"{\"phone\": \"0702438761\", \"name\": \"Niclas Ã…strand\", \"user\": \"niclas.astrand\"}, " + 
+			"{\"phone\": \"0702022133\", \"name\": \"Niklas Johansson\", \"user\": \"niklas.johansson\"}, " + 
+			"{\"phone\": \"0702109203\", \"name\": \"Ola Klasson\", \"user\": \"ola.klasson\"}, " + 
+			"{\"phone\": \"0708618511\", \"name\": \"Peter Lindh\", \"user\": \"peter.lindh\"}, " + 
+			"{\"phone\": \"0703286086\", \"name\": \"Pierre Ingmansson\", \"user\": \"pierre.ingmansson\"}, " + 
+			"{\"phone\": \"0709100528\", \"name\": \"Rikard Thulin\", \"user\": \"rikard.thulin\"}, " + 
+			"{\"phone\": \"0709723864\", \"name\": \"Tomas Trolltoft\", \"user\": \"tomas.trolltoft\"}, " + 
+			"{\"phone\": \"0703333134\", \"name\": \"TorbjÃ¶rn Karlsson\", \"user\": \"torbjorn.karlsson\"}, " + 
+			"{\"phone\": \"0702751019\", \"name\": \"Wincent Papousek\", \"user\": \"wincent.papousek\"}]\r\n";
 	private static Date eventDate = new Date();
 	
 	private static List<PersonDTO> personList = new ArrayList<PersonDTO>();

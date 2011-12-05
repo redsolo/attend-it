@@ -7,6 +7,7 @@
 	<property name="src.dir" value="src"/>
 	<property name="classes.dir" value="classes"/>
 	<property name="lib.dir" value="lib"/>
+	<property name="dist.dir" value="dist"/>
 	<property name="debug" value="true"/>
 	
     <path id="project.class.path">
@@ -23,12 +24,11 @@
     </target>
 
 	<target name="war" depends="compile">
-		
-		
-		
-        <war destfile="attendit.war" webxml="resources/WEB-INF/web.xml" basedir="web">
+		<mkdir dir="${dist.dir}"/>
+        <war destfile="${dist.dir}/attendit.war" webxml="resources/WEB-INF/web.xml" basedir="web">
             <classes dir="${classes.dir}" />
         	<lib dir="${lib.dir}">
+        		<include name="attendit-common.jar"/>
         		<include name="gson*.jar"/>
         		<include name="jackson-mapper-asl-*.jar"/>
         	</lib>
@@ -37,29 +37,12 @@
 	
 	<target name="deploy" depends="war">
 		<copy tofile="../../../jboss/standalone/deployments/attendit.war" 
-					  file="attendit.war"/>
+					  file="${dist.dir}/attendit.war"/>
 		   		<echo>Deployed AttendIT.war</echo>
 	</target>
-	<!--
-    <target name="war" depends="compile">
-        <jar destfile="attendit.war">
-            <fileset dir="classes"/>
-        	<fileset dir="lib"/>
-            <fileset dir="resources">
-                <include name="META-INF/**"/>               
-            </fileset>
-            <manifest>
-                <attribute name="Built-By" value="SQUEED"/>
-                <attribute name="Build-Version" value="${build.version}"/>
-                <attribute name="Build-Commit" value="${build.vcs.no}"/>
-                <attribute name="Build-Date" value="${build.time}"/>
-            </manifest>
 
-        </jar>
-    </target>
-	-->
     <target name="clean" description="Cleans this project">
-        <delete file="attendit.war" failonerror="false"/>
+        <delete file="${dist.dir}/attendit.war" failonerror="false"/>
         <delete dir="war/WEB-INF/classes" failonerror="false"/>
         <delete dir="war/WEB-INF/lib" failonerror="false"/>
         <delete dir="${build.dir}" failonerror="false"/>

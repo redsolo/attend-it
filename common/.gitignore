@@ -1,0 +1,14 @@
+# Git ignore file for source
+# 
+# Howto use a gitignore file
+# Add ignore statement as close to the ignored content as possible;
+# Don't enter path/path2/path3/myStrangeRuntimefile
+
+# Ignore temporary build files
+classes
+bin
+dist
+.settings
+
+# Ignore diff tools temp files
+.orig

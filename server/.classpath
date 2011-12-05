@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="lib/javax.inject-1.jar"/>
 	<classpathentry kind="lib" path="lib/cdi-api-1.0-SP4.jar"/>
 	<classpathentry kind="lib" path="lib/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/common"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

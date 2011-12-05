@@ -5,6 +5,7 @@
 # Don't enter path/path2/path3/myStrangeRuntimefile
 
 # Ignore temporary build files
+classes
 bin
 .settings
 
