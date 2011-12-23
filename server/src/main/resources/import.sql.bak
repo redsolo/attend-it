@@ -1,0 +1,5 @@
+-- You can use this file to load seed data into the database using SQL statements
+insert into Member (id, username, password) values (-1, 'local', '2125551212')
+insert into course_state values (0, 'Ok')
+insert into course_state values (1, 'Redigerad')
+insert into course_state values (2, 'Ej komplett')

@@ -58,6 +58,7 @@
                     <sdk>
                         <!-- platform or api level (api level 4 = platform 1.6)-->
                         <platform>10</platform>
+						<path>c:/java/android-sdk/</path>
                     </sdk>
                 </configuration>
             </plugin>
