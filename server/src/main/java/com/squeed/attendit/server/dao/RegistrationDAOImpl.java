@@ -2,11 +2,10 @@ package com.squeed.attendit.server.dao;
 
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import com.squeed.attendit.server.model.EventInstance;
@@ -14,6 +13,7 @@ import com.squeed.attendit.server.model.Person;
 import com.squeed.attendit.server.model.Registration;
 
 @Stateless
+@Local(RegistrationDAO.class)
 public class RegistrationDAOImpl implements RegistrationDAO {
 	
 	@Inject
@@ -21,7 +21,13 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 	
 	@Override
 	public List<EventInstance> getEvents() {
-		return em.createQuery("select e from EventInstance e").getResultList();
+		List<EventInstance> resultList = em.createQuery("select e from EventInstance e").getResultList();
+		for(EventInstance ei : resultList) {
+			ei.getAdministrators().size();
+			ei.getRegistrations().size();
+			
+		}
+		return resultList;
 	}
 
 	@Override

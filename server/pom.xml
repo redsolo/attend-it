@@ -4,7 +4,7 @@
 
    <groupId>com.squeed.attendit</groupId>
    <artifactId>server</artifactId>
-   <version>0.1</version>
+   <version>1.0</version>
    <packaging>war</packaging>
 
    <name>Attend it Server</name>
@@ -75,7 +75,13 @@
             </exclusion>
          </exclusions>
       </dependency>
-
+	  <!--
+	  <dependency>
+		<groupId>com.squeed.attendit</groupId>
+		<artifactId>common</artifactId>
+		<version>1.0</version>
+	  </dependency>
+-->
       <!-- Seam Solder provides convenient, portable CDI extensions such 
          as an injectable logger -->
       <dependency>
@@ -166,6 +172,20 @@
 		  <artifactId>gson</artifactId>
 		  <version>1.7.1</version>
 		  <scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin</artifactId>
+			<version>6.7.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>2.3.0</version>
+			<scope>compile</scope>
 		</dependency>
    </dependencies>
 

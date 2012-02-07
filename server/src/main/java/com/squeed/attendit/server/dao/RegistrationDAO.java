@@ -2,8 +2,6 @@ package com.squeed.attendit.server.dao;
 
 import java.util.List;
 
-import javax.ejb.Local;
-
 import com.squeed.attendit.server.model.EventInstance;
 import com.squeed.attendit.server.model.Person;
 import com.squeed.attendit.server.model.Registration;

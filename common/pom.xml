@@ -6,6 +6,7 @@
   
   <artifactId>common</artifactId>
   <name>Attend It Common</name>
+  <version>1.0</version>
   <parent>
     <groupId>com.squeed.attendit</groupId>
     <artifactId>pom</artifactId>
